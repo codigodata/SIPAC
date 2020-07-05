@@ -1,0 +1,53 @@
+<div class="d-flex justify-content-center bg-dark">
+    <img src="https://codigodata.com/assets//logo.png" >
+  </div>
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+     <a class="navbar-brand" href="#">
+      <img src="https://www.axpe.com/wp-content/uploads/2018/05/logo-s-blue.png" width="30" height="30" alt="" loading="lazy">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="home">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item" *ngIf="router.url == '/home'">
+          <a class="nav-link" routerLink="partes">Partes</a>
+        </li>        
+        <li class="nav-item" *ngIf="router.url == '/partes'">
+          <a class="nav-link" routerLink="partes/actividades">Actividades</a>
+        </li>
+        <li class="nav-item" *ngIf="router.url == '/partes'">
+          <a class="nav-link " routerLink="partes/gastos" >Gastos</a>
+        </li>
+        <li class="nav-item" *ngIf="router.url == '/partes'">
+          <a class="nav-link " routerLink="partes/vacaciones" >Solicitud de vacaciones</a>
+        </li>
+        <li class="nav-item" *ngIf="router.url == '/home' && loginService.getPerfil() == 1">
+          <a class="nav-link " routerLink="empleados" >Empleados</a>
+        </li>        
+        <li class="nav-item" *ngIf="router.url == '/empleados'">
+          <a class="nav-link " routerLink="empleados/partesActividades" >Partes de actividades</a>
+        </li>
+        <li class="nav-item" *ngIf="router.url == '/empleados'">
+          <a class="nav-link " routerLink="empleados/solicitudVacaciones" >Solicitud de vacaciones</a>
+        </li>     
+        <li class="nav-item" *ngIf="loginService.isAuth()">
+          <a class="nav-link " style="cursor: pointer;" (click)="logout()" >Desconectar</a>
+        </li>     
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+  
+  <!-- debug ruta
+  router.url es {{
+    router.url
+  }}
+  -->

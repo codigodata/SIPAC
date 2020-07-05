@@ -1,0 +1,87 @@
+.contenedorTabla {
+    display:flex;
+    flex-direction: column;
+    margin: 1rem auto;
+    margin-top: 0;
+    width: 95%;
+   }
+
+  .campoNum {
+    width: 100px;
+  }
+
+  .campo100 {
+    width: 170px;
+  }
+  
+.btn-izquierda {
+  position: absolute;
+  left: 5rem;
+  height: 3rem;
+  line-height: 3rem;
+}
+.btn-derecha {
+  position: absolute;
+  right: 5rem;
+  height: 3rem;
+  line-height: 3rem;
+}
+
+.row {
+  display: flex;
+  flex-wrap: nowrap !important;
+  input[type="text"] {
+    width: 13rem;
+  }
+}
+
+tr.fondoAzul {
+  color: white;
+  background-color: blue;
+}
+
+td {
+    height: 0.5rem !important;
+    //padding: 0;
+    input {
+        margin: 0 !important;
+    }
+    &.anchoColBtn {
+        width: 1.5rem;
+    }
+    &.borrador {
+        background-color: darkgrey;
+    }
+    &.enviado {
+        background-color: lightslategrey;
+    }
+    &.visado {
+        background-color: green;
+    }
+    &.rechazado {
+        background-color: red;
+    }        
+    &.disfrutado {
+        background-color: blue;
+    }
+}
+
+
+input {
+
+  
+
+  &.borrador {
+  background-color: darkgrey;
+}
+&.enviado {
+  background-color: lightslategrey;
+}
+&.visado {
+  background-color: rgba(0, 255, 0, 0.575);
+}
+&.rechazado {
+  color:black;
+  background-color: rgb(218, 68, 68);
+}        
+} 

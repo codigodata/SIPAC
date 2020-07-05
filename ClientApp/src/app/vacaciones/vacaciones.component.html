@@ -1,0 +1,163 @@
+
+
+
+<mat-grid-list   class="cabecera-grid-list"  cols="3" rowHeight="2.6:1">
+  <mat-grid-tile class="cabecera-grid-tile"> 
+    <app-selec-anio  [titulo]="'Parte de Vacaciones Anuales'"
+  (anioEvent)="seleccionAnio($event)" [empleado]="empleadoSel" [anio]="anioSel"
+  (empleadoEvent)="seleccionEmpleado($event)"
+  ></app-selec-anio>
+  </mat-grid-tile>
+  <mat-grid-tile class="cabecera-grid-tile">
+
+    <mat-card class="empleado-vacaciones-card">
+    <mat-card-content>
+    <div>
+      <mat-form-field class="literal" >
+          <label>
+            <input matInput type="text" value="{{empleado.diasTotales}}" placeholder="Dias totales" disabled>
+          </label>
+      </mat-form-field>
+    </div>  
+    <div>
+      <mat-form-field class="literal" >
+          <label>
+            <input matInput type="text" value="{{empleado.diasPendientes}}" placeholder="Dias pendientes" disabled>
+          </label>
+      </mat-form-field>
+    </div>  
+    <div>
+      <mat-form-field class="literal" >
+          <label>
+            <input matInput type="text" value="{{empleado.dias2019}}" placeholder="Dias disgrutados de 2019" disabled>
+          </label>
+      </mat-form-field>
+    </div>  
+  </mat-card-content>
+</mat-card>
+
+  </mat-grid-tile>
+  <mat-grid-tile  class="cabecera-grid-tile">
+
+    <mat-card class="empleado-vacaciones-card">
+    <mat-card-content>
+    <div>
+      <mat-form-field class="literal" >
+          <label>
+            <input matInput type="text" value="{{empleado.diasTramite}}" placeholder="Dias en trámite" disabled>
+          </label>
+      </mat-form-field>
+    </div>  
+    <div>
+      <mat-form-field class="literal" >
+          <label>
+            <input matInput type="text" value="{{empleado.diasDisfrutados}}" placeholder="Dias disfrutados" disabled>
+          </label>
+      </mat-form-field>
+    </div>  
+    <div>
+      <mat-form-field class="literal" >
+          <label>
+            <input matInput type="text" value="{{empleado.dias2020}}" placeholder="Dias disgrutados de 2020" disabled>
+          </label>
+      </mat-form-field>
+    </div>  
+  </mat-card-content>
+</mat-card>
+
+  </mat-grid-tile>
+</mat-grid-list>
+
+<div style="clear: both"></div>
+  
+<table class="grid-vacaciones table-striped">
+    <thead>
+    <tr class="fondoAzul">
+        <th ></th>
+        <th *ngFor="let dia of diaMes" >{{ dia }}</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr  *ngFor="let vacacion of empleado.vacaciones; index as i">
+            <td >
+                {{ vacacion.mes  }}
+            </td>
+            <td  *ngFor="let dia of vacacion.dias ; let h = index ; trackBy:trackByFn"
+              [ngClass]="{'festivo': vacacion.dias[h].festivo, 
+                          'borrador': vacacion.dias[h].estado == 'borrador', 
+                          'enviado': vacacion.dias[h].estado == 'enviado', 
+                          'visado': vacacion.dias[h].estado == 'visado', 
+                          'rechazado': vacacion.dias[h].estado == 'rechazado', 
+                          'disfrutado': vacacion.dias[h].estado == 'disfrutado'}">
+                <input type="checkbox" (change)="clickDia(i, h)"  [(ngModel)]="vacacion.dias[h].check"
+                class="margin-dcho-small" disabled="{{ vacacion.dias[h].festivo
+                                                     || vacacion.dias[h].estado == 'visado' 
+                                                     || vacacion.dias[h].estado == 'enviado' 
+                                                     || vacacion.dias[h].estado == 'disfrutado'  
+                                                     || router.url == '/empleados/solicitudVacaciones' }}" >  
+                <!-- 
+            <mat-checkbox (change)="calcularTotales()" [(ngModel)]="vacacion.dias[h]"
+                class="margin-dcho-small"> </mat-checkbox>
+                -->
+            </td>
+            <td class="anchoColBtn centrado">
+                {{ vacacion.total }}               
+            </td>
+          </tr>
+     </tbody>
+  </table>
+  
+  <!--
+  <section>
+     <div class="example-button-row">
+      <button mat-button (click)="guardar()" color="primary">Guardar</button>
+      <button mat-button (click)="enviar()" color="primary">Enviar</button>
+      <button mat-button (click)="cancelar()" color="primary">Cancelar</button>
+     </div>
+  </section>
+-->
+
+<div class="btn-izquierda">
+  <span class="container" style="color:black ;background-color: darkgrey;">Borrador</span>
+  &nbsp;
+  <span class="container" style="color:black ;background-color: lightslategrey;">Enviado</span>
+  &nbsp;
+  <span class="container" style="color:black ;background-color: rgba(0, 255, 0, 0.575);">Visado</span>
+  &nbsp;
+  <span class="container" style="color:black ;background-color: rgb(218, 68, 68);">Rechazado</span>
+
+</div>
+<div class="btn-derecha">
+ 
+  <button mat-stroked-button color="primary" (click)="guardar()" *ngIf="router.url == '/partes/vacaciones'">
+    <mat-icon>save</mat-icon>Guardar
+  </button>
+  &nbsp;
+  &nbsp;
+  <button mat-stroked-button color="primary" (click)="enviar()" *ngIf="router.url == '/partes/vacaciones'">
+    <mat-icon>send</mat-icon>Enviar			
+  </button>
+  &nbsp;
+  &nbsp;
+  <button mat-stroked-button color="primary" (click)="aceptar()" *ngIf="router.url == '/empleados/solicitudVacaciones'">
+    <mat-icon>check</mat-icon>Aceptar
+  </button>
+  &nbsp;
+  &nbsp;
+  <button mat-stroked-button color="primary" (click)="rechazar()" *ngIf="router.url == '/empleados/solicitudVacaciones'">
+    <mat-icon>close</mat-icon>Rechazar			
+  </button>
+  &nbsp;
+  &nbsp;
+  <button mat-stroked-button color="primary">
+    <mat-icon>cancel</mat-icon>Cancelar
+  </button>
+  &nbsp;
+  &nbsp;
+  <button mat-stroked-button color="primary">
+    <mat-icon>print</mat-icon>Imprimir
+  </button>	
+</div>
+
+
+<br/><br/><br/>
